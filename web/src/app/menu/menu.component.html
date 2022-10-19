@@ -1,0 +1,55 @@
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav #drawer class="sidenav" fixedInViewport=false
+    [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'" [mode]="(isHandset$ | async) ? 'over' : 'side'"
+    [opened]="(isHandset$ | async) === false">
+    <mat-toolbar>Menu</mat-toolbar>
+    <mat-nav-list>
+      <a mat-list-item [routerLink]="['home']">Home</a>
+      <a *ngIf="isAuthenticated()" mat-list-item [routerLink]="['person']">Personen</a>
+      <a *ngIf="isAdmin()" mat-list-item [routerLink]="['athletes']">Athleten</a>
+      <a *ngIf="!isAuthenticated()" mat-list-item [routerLink]="['person']">Login</a>
+      <a *ngIf="isAuthenticated()" mat-icon-button [matMenuTriggerFor]="menu"
+        matTooltip="Email: {{user?.userDetails}}, Rollen: {{user?.userRoles}}">
+        <mat-icon>info</mat-icon>
+      </a>
+      <mat-menu #menu="matMenu">
+        <a mat-menu-item>
+          <mat-icon>person</mat-icon>{{user?.userDetails}}
+        </a>
+        <a mat-menu-item>
+          <mat-icon>supervisor_account</mat-icon>{{user?.userRoles}}
+        </a>
+        <a mat-menu-item href="/.auth/logout">Logoff</a>
+      </mat-menu>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <mat-toolbar color="primary">
+      <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()" *ngIf="isHandset$ | async">
+        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+      </button>
+      <a class="title" href="/">{{ title}}</a>
+      <div class="toolbar-spacer"></div>
+      <div class="horizontal-menu">
+        <button mat-button [routerLink]="['home']">Home</button>
+        <button *ngIf="isAuthenticated()" mat-button [routerLink]="['person']">Personen</button>
+        <button *ngIf="isAdmin()" mat-button [routerLink]="['athletes']">Athleten</button>
+        <button *ngIf="!isAuthenticated()" mat-button [routerLink]="['person']">Login</button>
+        <button *ngIf="isAuthenticated()" mat-icon-button [matMenuTriggerFor]="menu"
+          matTooltip="Email: {{user?.userDetails}}, Rollen: {{user?.userRoles}}">
+          <mat-icon>info</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item>
+            <mat-icon>person</mat-icon>{{user?.userDetails}}
+          </button>
+          <button mat-menu-item>
+            <mat-icon>supervisor_account</mat-icon>{{user?.userRoles}}
+          </button>
+          <button mat-menu-item href="/.auth/logout">Logoff</button>
+        </mat-menu>
+      </div>
+    </mat-toolbar>
+    <ng-content></ng-content>
+  </mat-sidenav-content>
+</mat-sidenav-container>
