@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import {LiveAnnouncer} from '@angular/cdk/a11y';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ApiService, PersonDTO } from 'src/services/generated/api.service';
-import { BehaviorSubject, Subscription } from 'rxjs';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort, Sort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
 
 
 @Component({
@@ -12,19 +14,30 @@ import { BehaviorSubject, Subscription } from 'rxjs';
 
 export class PersonComponent implements OnInit {
   message = '';
-  displayedColumns: string[] = ['position', 'name', 'email', 'roles'];
-  datasource : PersonDTO[] | any;
+  displayedColumns: string[] = ['rowKey', 'email', 'name'];
+  //datasource: PersonDTO[] | any;
+  datasource: MatTableDataSource<PersonDTO>;
   public inputValue = '';
   public persons: PersonDTO[] | undefined;
 
-  constructor(
-    private http: HttpClient,
-    private apiService: ApiService
-  ) { }
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
 
-  ngOnInit() {
+  constructor(
+    private _liveAnnouncer: LiveAnnouncer,
+    private apiService: ApiService
+  ) { 
     this.inputValue = '';
     this.loadPersons();
+   }
+
+  ngOnInit() {
+    // this.inputValue = '';
+    // this.loadPersons();
+  }
+
+  ngAfterViewInit() {
+    
   }
 
   getProfile() {
@@ -32,7 +45,6 @@ export class PersonComponent implements OnInit {
 
       let person = new PersonDTO();
       person.email = this.inputValue;
-      person.partitionKey = this.inputValue;
       person.name = this.inputValue;
       let s = this.apiService.createPerson(person).subscribe(x => {
         console.log("gelukt:", x)
@@ -42,16 +54,22 @@ export class PersonComponent implements OnInit {
     }
   }
 
+  public doFilter = (value: string) => {
+    this.datasource.filter = value.trim().toLocaleLowerCase();
+  }
+
   changeInputValue(event: any) {
     this.inputValue = event.target.value;
     console.log("input value changed: ", this.inputValue);
   }
 
-  loadPersons(){
+  loadPersons() {
     this.apiService.getAllPersons().subscribe(
       res => {
         if (res) {
-          this.persons = res;
+          this.datasource = new MatTableDataSource<PersonDTO>(res);
+          this.datasource.paginator = this.paginator;
+          this.datasource.sort = this.sort;
         }
       }
     );

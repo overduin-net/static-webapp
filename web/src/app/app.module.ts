@@ -1,11 +1,11 @@
 import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from "@angular/common/http"; // Import 
-
+import { HttpClientModule } from "@angular/common/http";
 import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+import { AppComponent } from './app.component';
 
 import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -18,16 +18,19 @@ import { MatInputModule } from '@angular/material/input';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSortModule } from '@angular/material/sort';
+import { MatSidenavModule } from '@angular/material/sidenav';
 
+import { LayoutModule } from '@angular/cdk/layout';
+
+import { MenuComponent } from './menu/menu.component';
 import { HomeComponent } from './home/home.component';
-import { AccountService } from 'src/services/account.service';
+import { PersonComponent } from './person/person.component';
+
 import { AuthService } from 'src/services/auth.service';
 import { ApiService, API_URL } from 'src/services/generated/api.service';
-import { PersonComponent } from './person/person.component';
-import { LayoutModule } from '@angular/cdk/layout';
-import { MatSidenavModule } from '@angular/material/sidenav';
-import { MenuComponent } from './menu/menu.component';
-import { environment } from 'src/environments/environment';
+import { AccountService } from 'src/services/account.service';
 
 @NgModule({
   declarations: [
@@ -53,6 +56,8 @@ import { environment } from 'src/environments/environment';
     MatTooltipModule,
     MatMenuModule,
     MatTableModule,
+    MatPaginatorModule,
+    MatSortModule,
     HttpClientModule,
     FormsModule,
     LayoutModule,

@@ -1,27 +1,47 @@
 <p>persons works!</p>
 
 <form class="example-form">
-    <mat-form-field class="example-full-width" appearance="fill">
-        <mat-label>Welke naam</mat-label>
-        <input matInput placeholder="naam" value="" [(ngModel)]="inputValue" (change)="changeInputValue($event)"
-            [ngModelOptions]="{standalone: true}">
-    </mat-form-field>
+  <mat-form-field class="example-full-width" appearance="fill">
+    <mat-label>Welke naam</mat-label>
+    <input matInput placeholder="naam" value="" [(ngModel)]="inputValue" (change)="changeInputValue($event)"
+      [ngModelOptions]="{standalone: true}">
+  </mat-form-field>
 </form>
 <button (click)="getProfile()" mat-icon-button>save person</button>
 <p>{{ message }}</p>
+<div fxLayout fxLayoutAlign="center center">
+  <mat-form-field fxFlex="40%">
+    <input matInput type="text" (keyup)="doFilter($event.target.value)" placeholder="Filter">
+  </mat-form-field>
+</div>
 
+<div class="mat-elevation-z8">
+  <mat-table [dataSource]="datasource" matSort>
 
-<table>
-    <thead>
-        <th>rowKey</th>
-        <th>partitionKey</th>
-        <th>email</th>
-        <th>name</th>
-    </thead>
-    <tr *ngFor="let person of persons">
-        <td>{{person.rowKey}}</td>
-        <td>{{person.partitionKey}}</td>
-        <td>{{person.email}}</td>
-        <td>{{person.name}}</td>
-    </tr>
-</table>
+    <ng-container matColumnDef="rowKey">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>rowKey</mat-header-cell>
+      <mat-cell *matCellDef="let element" data-label="rowKey"> {{element.rowKey}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="partitionKey">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>partitionKey</mat-header-cell>
+      <mat-cell *matCellDef="let element" data-label="partitionKey"> {{element.partitionKey}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="email">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>email</mat-header-cell>
+      <mat-cell *matCellDef="let element" data-label="email"> {{element.email}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="name">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>name</mat-header-cell>
+      <mat-cell *matCellDef="let element" data-label="name"> {{element.name}} </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+
+  </mat-table>
+  <mat-paginator [pageSizeOptions]="[ 10, 25, 100]"></mat-paginator>
+
+</div>

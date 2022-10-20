@@ -25,6 +25,12 @@ a.title {
   text-decoration: none;
 }
 
+.icon-display {
+  transform: scale(4);
+  margin-left:40px;
+  margin-top:40px;
+}
+
 @media(min-width: 768px){
   
   .sidenav {
@@ -39,4 +45,9 @@ a.title {
     display: none;
   }
 
+  .icon-display {
+    transform: scale(1);
+    margin-left:0;
+    margin-top:0;
+  }
 }

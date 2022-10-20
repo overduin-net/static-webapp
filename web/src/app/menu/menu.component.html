@@ -28,7 +28,7 @@
       <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()" *ngIf="isHandset$ | async">
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
-      <a class="title" href="/">{{ title}}</a>
+      <mat-icon class="icon-display" svgIcon="favicon"></mat-icon>
       <div class="toolbar-spacer"></div>
       <div class="horizontal-menu">
         <button mat-button [routerLink]="['home']">Home</button>

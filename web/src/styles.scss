@@ -12,7 +12,21 @@ body {
         padding: 0, 50px !important;
     }
     .container {
-        width: 998px;
+        width: 1200px;
         margin: auto; 
+        margin-top: 50px
+    }
+}
+@media screen and (max-width: 1200px) {
+    body {
+        margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; 
+        .menu{
+            padding: 0, 50px !important;
+        }
+        .container {
+            width: 100%;
+            margin: auto; 
+            margin-top: 0;
+        }
     }
 }
