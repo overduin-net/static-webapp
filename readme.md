@@ -1,38 +1,81 @@
-# Template
+# Starter template for Azure Static WebApp
+
+## Description
+
+This repository contains a template with frontend and backend with azure table and blob storage for storing data and files. Project contains:
+ - Angular 14
+ - Function v4 .NET6
+
+This project uses Azure Static WebApp in the simpelest and cheapest way. External documentation:
+
+https://learn.microsoft.com/en-us/azure/static-web-apps/
+
+https://angular.io/
+
+https://material.angular.io/ (responsive styling)
+
+
+
+## Usage
+
+### Installing local
+(for mac or linux use 'sudo')
+```
+npm install -g @angular/cli
+npm install -g azure-functions-core-tools@4
+npm install -g @azure/static-web-apps-cli
+npm install -g nswag
+```
+
+### Install vscode extentions
+
+ - Azurite (mock the Azure Table Storage)
 
 Develop Static WebApp (swa)
+
 https://azure.github.io/static-web-apps-cli/
 
-```
+``` 
 npm install -g @azure/static-web-apps-cli
 ```
 
-# check if installation is correct
-```
-swa --version
-```
-# Should print out the version number
+### Prepare Function
+ - change filname extention 
+   - api/local.settings.json.example --> api/local.settings.json
 
-In the root of the project
+
+## Run application
+
+### *Step 1*
+Start [Azurite Table Service] and [Azurite Blob Service]
+
+### *Step 2*
+Install npm packages in the "web"
 ```
-swa init
+cd web
+npm install
 ```
 
-check if it read the project OK
+### *Step 3*
+Open a second terminal and start the application
 
 ```
 swa start
 ```
+Application is active at
+http://localhost:4280/
 
-Use Nswag to sync model and api's from banckend to frontend
-```
-npm install nswag -g
-```
 
-In other terminal update the API's and Models
+
+### *When model changes update frontend with nswag*
+Make sure application is running like in "Step 3"
+
 ```
+cd web
 nswag run /runtime:Net60
 ```
 
-# Tips
-...
+
+# TIPS
+ - *Data is not being stored*
+   - make sure the [Azurite Table Service] is enabled
