@@ -18,14 +18,9 @@
 <div class="mat-elevation-z8">
   <mat-table [dataSource]="datasource" matSort>
 
-    <ng-container matColumnDef="rowKey">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>rowKey</mat-header-cell>
-      <mat-cell *matCellDef="let element" data-label="rowKey"> {{element.rowKey}} </mat-cell>
-    </ng-container>
-
-    <ng-container matColumnDef="partitionKey">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>partitionKey</mat-header-cell>
-      <mat-cell *matCellDef="let element" data-label="partitionKey"> {{element.partitionKey}} </mat-cell>
+    <ng-container matColumnDef="id">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>id</mat-header-cell>
+      <mat-cell *matCellDef="let element" data-label="rowKey"> {{element.id}} </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="email">

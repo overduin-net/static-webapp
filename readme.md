@@ -14,6 +14,7 @@ https://angular.io/
 
 https://material.angular.io/ (responsive styling)
 
+https://azure.github.io/static-web-apps-cli/
 
 
 ## Usage
@@ -31,16 +32,9 @@ npm install -g nswag
 
  - Azurite (mock the Azure Table Storage)
 
-Develop Static WebApp (swa)
-
-https://azure.github.io/static-web-apps-cli/
-
-``` 
-npm install -g @azure/static-web-apps-cli
-```
 
 ### Prepare Function
- - change filname extention 
+ - change filename extension 
    - api/local.settings.json.example --> api/local.settings.json
 
 

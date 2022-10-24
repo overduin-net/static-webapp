@@ -163,8 +163,7 @@ export class ApiService extends BaseService {
 }
 
 export class PersonDTO implements IPersonDTO {
-    rowKey?: string | undefined;
-    partitionKey?: string | undefined;
+    id?: string | undefined;
     name?: string | undefined;
     email?: string | undefined;
 
@@ -179,8 +178,7 @@ export class PersonDTO implements IPersonDTO {
 
     init(_data?: any) {
         if (_data) {
-            this.rowKey = _data["rowKey"];
-            this.partitionKey = _data["partitionKey"];
+            this.id = _data["id"];
             this.name = _data["name"];
             this.email = _data["email"];
         }
@@ -195,8 +193,7 @@ export class PersonDTO implements IPersonDTO {
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
-        data["rowKey"] = this.rowKey;
-        data["partitionKey"] = this.partitionKey;
+        data["id"] = this.id;
         data["name"] = this.name;
         data["email"] = this.email;
         return data;
@@ -211,8 +208,7 @@ export class PersonDTO implements IPersonDTO {
 }
 
 export interface IPersonDTO {
-    rowKey?: string | undefined;
-    partitionKey?: string | undefined;
+    id?: string | undefined;
     name?: string | undefined;
     email?: string | undefined;
 }

@@ -14,7 +14,7 @@ import { MatTableDataSource } from '@angular/material/table';
 
 export class PersonComponent implements OnInit {
   message = '';
-  displayedColumns: string[] = ['rowKey', 'email', 'name'];
+  displayedColumns: string[] = ['id', 'email', 'name'];
   //datasource: PersonDTO[] | any;
   datasource: MatTableDataSource<PersonDTO>;
   public inputValue = '';

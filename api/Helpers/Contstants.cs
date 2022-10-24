@@ -1,6 +1,4 @@
-namespace StaticWebApp.Template
+public class Constants
 {
-    public class Constants{
-        public const string PartitionKey = "TemplatePartitionKey";
-    }
+    public const string PartitionKey = "ApplicationPartitionKey";
 }

@@ -1,14 +1,10 @@
-using System;
-using AutoMapper;
-
-namespace StaticWebApp.Template
+public class PersonProfile : Profile
 {
-    public class PersonProfile : Profile
+    public PersonProfile()
     {
-        public PersonProfile()
-        {
-            CreateMap<Person, PersonDTO>();
-            CreateMap<PersonDTO, Person>();
-        }
+        CreateMap<Person, PersonDTO>()
+            .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.RowKey));
+        CreateMap<PersonDTO, Person>()
+            .ForMember(dest => dest.RowKey, opt => opt.MapFrom(src => src.Id));
     }
 }
