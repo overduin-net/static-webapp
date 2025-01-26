@@ -1,7 +1,7 @@
 import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from "@angular/common/http";
+import { provideHttpClient, withInterceptorsFromDi } from "@angular/common/http";
 import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -32,45 +32,39 @@ import { AuthService } from 'src/services/auth.service';
 import { ApiService, API_URL } from 'src/services/generated/api.service';
 import { AccountService } from 'src/services/account.service';
 
-@NgModule({
-  declarations: [
-    AppComponent,
-    PersonComponent,
-    HomeComponent,
-    MenuComponent
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    MatButtonModule,
-    MatToolbarModule,
-    MatListModule,
-    MatSliderModule,
-    MatCardModule,
-    MatIconModule,
-    MatToolbarModule,
-    MatButtonModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatTooltipModule,
-    MatMenuModule,
-    MatTableModule,
-    MatPaginatorModule,
-    MatSortModule,
-    HttpClientModule,
-    FormsModule,
-    LayoutModule,
-    MatSidenavModule
-  ],
-  providers: [
-    { provide: API_URL, useValue: getOrigin(), deps: [APP_INITIALIZER] },
-    AccountService,
-    AuthService,
-    ApiService
-  ],
-  bootstrap: [AppComponent]
-})
+@NgModule({ declarations: [
+        AppComponent,
+        PersonComponent,
+        HomeComponent,
+        MenuComponent
+    ],
+    bootstrap: [AppComponent], imports: [BrowserModule,
+        AppRoutingModule,
+        BrowserAnimationsModule,
+        MatButtonModule,
+        MatToolbarModule,
+        MatListModule,
+        MatSliderModule,
+        MatCardModule,
+        MatIconModule,
+        MatToolbarModule,
+        MatButtonModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatTooltipModule,
+        MatMenuModule,
+        MatTableModule,
+        MatPaginatorModule,
+        MatSortModule,
+        FormsModule,
+        LayoutModule,
+        MatSidenavModule], providers: [
+        { provide: API_URL, useValue: getOrigin(), deps: [APP_INITIALIZER] },
+        AccountService,
+        AuthService,
+        ApiService,
+        provideHttpClient(withInterceptorsFromDi())
+    ] })
 export class AppModule { }
 
 function getOrigin(): string {

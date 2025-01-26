@@ -3,8 +3,9 @@
 ## Description
 
 This repository contains a template with frontend and backend with azure table and blob storage for storing data and files. Project contains:
- - Angular 14
- - Function v4 .NET6
+ - Angular 19
+ - Material
+ - Function v4 dotnet 8 (isolated)
 
 This project uses Azure Static WebApp in the simpelest and cheapest way. External documentation:
 

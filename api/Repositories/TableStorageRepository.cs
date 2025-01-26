@@ -4,24 +4,10 @@ public interface ITableStorageRepository
     Task<IEnumerable<T>> InsertOrMergeEntityAsync<T>(IEnumerable<T> entities) where T : class, ITableEntity, new();
     Task<T> ReplaceEntityAsync<T>(T entity) where T : class, ITableEntity, new();
     Task<IEnumerable<T>> ReplaceEntityAsync<T>(IEnumerable<T> entitities) where T : class, ITableEntity, new();
-    Task DeleteEntityAsync<T>(string rowKey) where T : class, ITableEntity, new();
+    Task DeleteEntityAsync<T>(string partitionKey, string rowKey) where T : class, ITableEntity, new();
     Task<T> GetEntityAsync<T>(string rowKey) where T : class, ITableEntity, new();
-    Task<IEnumerable<T>> GetEntities<T>(string value, string propertyName = "PartitionKey") where T : class, ITableEntity, new();
-
-    /// <summary>
-    /// Search entities by a given OData term.
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="filter">"PartitionKey eq 'foo'"</param>
-    /// <returns><see cref="Task<IEnumerable<T>>"/></returns>
+    Task<IEnumerable<T>> GetEntities<T>(string value, string propertyName = Constants.PartitionKey) where T : class, ITableEntity, new();
     Task<IEnumerable<T>> Search<T>(string filter) where T : class, ITableEntity, new();
-
-    /// <summary>
-    /// Filter entities by given expression.
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="predicate"></param>
-    /// <returns><see cref="Task<IEnumerable<T>>"/></returns>
     Task<IEnumerable<T>> Filter<T>(Expression<Func<T, bool>> predicate) where T : class, ITableEntity, new();
     Task<IEnumerable<T>> GetAllEntityRows<T>() where T : class, ITableEntity, new();
 }
@@ -30,6 +16,9 @@ public class TableStorageRepository : ITableStorageRepository
 {
     private readonly IConfiguration _configuration;
     private readonly ILoggerHelper _loggerHelper;
+
+    private const string _tablePrefix = "";
+    private const string _tableSuffix = "Data";
 
     public TableStorageRepository(IConfiguration configuration, ILoggerHelper loggerHelper)
     {
@@ -56,7 +45,6 @@ public class TableStorageRepository : ITableStorageRepository
         try
         {
             var table = await GetTableClient<T>();
-            entity.PartitionKey = Constants.PartitionKey;
 
             await table.UpsertEntityAsync(entity, TableUpdateMode.Merge);
         }
@@ -110,13 +98,13 @@ public class TableStorageRepository : ITableStorageRepository
         return entities;
     }
 
-    public async Task DeleteEntityAsync<T>(string rowKey) where T : class, ITableEntity, new()
+    public async Task DeleteEntityAsync<T>(string partitionKey, string rowKey) where T : class, ITableEntity, new()
     {
         try
         {
             var table = await GetTableClient<T>();
 
-            await table.DeleteEntityAsync(Constants.PartitionKey, rowKey);
+            await table.DeleteEntityAsync(partitionKey, rowKey);
         }
         catch (Exception e)
         {
@@ -141,13 +129,20 @@ public class TableStorageRepository : ITableStorageRepository
         return result;
     }
 
-    public async Task<IEnumerable<T>> GetEntities<T>(string value, string propertyName = "RowKey") where T : class, ITableEntity, new()
+    public async Task<IEnumerable<T>> GetEntities<T>(string value, string propertyName = Constants.RowKey) where T : class, ITableEntity, new()
     {
         IEnumerable<T> results = null;
         try
         {
             var table = await GetTableClient<T>();
-            results = table.Query<T>(x => x.RowKey == value);
+            if (propertyName == Constants.PartitionKey)
+            {
+                results = table.Query<T>(x => x.PartitionKey == value);
+            }
+            if (propertyName == Constants.RowKey)
+            {
+                results = table.Query<T>(x => x.RowKey == value);
+            }
         }
         catch (Exception e)
         {
@@ -206,7 +201,7 @@ public class TableStorageRepository : ITableStorageRepository
         {
             var table = await GetTableClient<T>();
 
-            results = table.Query<T>(x => x.PartitionKey == Constants.PartitionKey).ToList();
+            results = table.Query<T>().ToList();
         }
         catch (Exception e)
         {
@@ -221,7 +216,7 @@ public class TableStorageRepository : ITableStorageRepository
     #region Private Members
     private async Task<TableClient> GetTableClient<T>() where T : ITableEntity
     {
-        return await CreateTableClientAsync($"{typeof(T).Name}");
+        return await CreateTableClientAsync($"{_tablePrefix}{typeof(T).Name}{_tableSuffix}");
     }
     #endregion
 }

@@ -1,9 +1,9 @@
 {
-  "runtime": "Net60",
+  "runtime": "Default",
   "defaultVariables": null,
   "documentGenerator": {
     "fromDocument": {
-      "url": "http://localhost:7071/api/json",
+      "url": "http://localhost:7071/api/swagger/json",
       "output": null
     }
   },
@@ -18,7 +18,7 @@
       "httpClass": "HttpClient",
       "useSingletonProvider": false,
       "injectionTokenType": "InjectionToken",
-      "rxJsVersion": 6.0,
+      "rxJsVersion": 7.0,
       "dateTimeType": "MomentJS",
       "nullValue": "Undefined",
       "generateClientClasses": true,
@@ -37,13 +37,13 @@
       "useTransformOptionsMethod": true,
       "useTransformResultMethod": false,
       "generateDtoTypes": true,
-      "operationGenerationMode": "SingleClientFromOperationId",
+      "operationGenerationMode": "MultipleClientsFromOperationId",
       "markOptionalProperties": true,
-      "generateCloneMethod": true,
+      "generateCloneMethod": false,
       "typeStyle": "Class",
       "classTypes": [],
       "extendedClasses": [],
-      "extensionCode": "src/services/base/base.service.ts",
+      "extensionCode": "src/app/services/base/base.service.ts",
       "generateDefaultValues": true,
       "excludedTypeNames": [],
       "excludedParameterNames": [],
@@ -62,8 +62,7 @@
       "enumNameGeneratorType": null,
       "serviceHost": null,
       "serviceSchemes": null,
-      "output": "src/services/generated/api.service.ts",
-      "newLineBehavior": "Auto"
+      "output": "src/app/services/generated/api.service.ts"
     }
   }
 }
