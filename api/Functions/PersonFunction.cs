@@ -36,7 +36,6 @@ public class PersonFunction
                     person.RowKey = Guid.NewGuid().ToString();
                     person.PartitionKey = "Person";
                     person.CreatedBy = userDetails;
-                    person.Email = userDetails;
                 }
 
                 var p = await _tableStorageRepository.InsertOrMergeEntityAsync<Person>(person);
