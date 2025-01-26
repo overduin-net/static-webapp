@@ -1,0 +1,25 @@
+{
+    "name": "C# (.NET) met Node.js",
+    // Gebruik de Dockerfile
+    "build": {
+        "dockerfile": "Dockerfile"
+    },
+    "features": {
+        "ghcr.io/devcontainers/features/dotnet:1": {
+            "version": "8.0"
+        },
+        "ghcr.io/devcontainers/features/node:1": {
+            "version": "20"
+        }
+    },
+    "containerEnv": {
+        "NG_FORCE_TTY": "false"
+    },
+    "extensions": [
+        "Azurite.azurite"
+    ],
+    "forwardPorts": [ 7071, 4200, 4280],
+    "postCreateCommand": "bash .devcontainer/setup.sh",
+    "postAttachCommand": "swa start",
+    "remoteUser": "node"
+}

@@ -13,21 +13,9 @@ import { Observable, from as _observableFrom, throwError as _observableThrow, of
 import { Injectable, Inject, Optional, InjectionToken } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpResponse, HttpResponseBase } from '@angular/common/http';
 
+import moment from 'moment';
+
 export const API_URL = new InjectionToken<string>('API_URL');
-
-export class BaseService {
-  constructor() {
-  }
-
-  protected transformOptions(options: any) {
-    return Promise.resolve(options);
-  }
-
-  // Not implemented yet
-  protected transformResult(url: string, response: Response, processor: (response: Response) => any) {
-    return processor(response);
-  }
-}
 
 @Injectable()
 export class ApiService extends BaseService {
@@ -247,3 +235,5 @@ function blobToText(blob: any): Observable<string> {
         }
     });
 }
+
+/Users/jan/dev/static-webapp/web/src/app/services/base/base.service.ts

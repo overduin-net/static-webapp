@@ -7,9 +7,10 @@ import { MatTableDataSource } from '@angular/material/table';
 
 
 @Component({
-  selector: 'app-person',
-  templateUrl: './person.component.html',
-  styleUrls: ['./person.component.scss']
+    selector: 'app-person',
+    templateUrl: './person.component.html',
+    styleUrls: ['./person.component.scss'],
+    standalone: false
 })
 
 export class PersonComponent implements OnInit {
@@ -44,7 +45,6 @@ export class PersonComponent implements OnInit {
     if (this.inputValue && this.inputValue != '') {
 
       let person = new PersonDTO();
-      person.email = this.inputValue;
       person.name = this.inputValue;
       let s = this.apiService.createPerson(person).subscribe(x => {
         console.log("gelukt:", x)

@@ -1,10 +1,13 @@
+[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://github.com/codespaces/new?skip_quickstart=true&hide_repo_select=true&ref=main&repo=549779176&machine=basicLinux32gb&devcontainer_path=.devcontainer%2Fdevcontainer.json&location=WestEurope)
+
 # Starter template for Azure Static WebApp
 
 ## Description
 
 This repository contains a template with frontend and backend with azure table and blob storage for storing data and files. Project contains:
- - Angular 14
- - Function v4 .NET6
+ - Angular 19
+ - Material
+ - Function v4 dotnet 8 (isolated)
 
 This project uses Azure Static WebApp in the simpelest and cheapest way. External documentation:
 
