@@ -13,8 +13,6 @@ public interface IAdUserHelper
 
 public class AdUserHelper : IAdUserHelper
 {
-    public AdUserHelper() { }
-
     public ClientPrincipal GetStaticWebAppClientPrincipal(HttpRequest req)
     {
         var principal = new ClientPrincipal();

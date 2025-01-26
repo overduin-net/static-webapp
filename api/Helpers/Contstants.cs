@@ -5,10 +5,8 @@ public class Constants
     
     public class StaticWebAppRole
     {
-        public const string Anonymous = "anonymous";
-        public const string Authenticated = "authenticated";
-        public const string Administrator = "administrator";
-        public const string EmployeeSuccessManager = "employeesuccessmanager";
-        public const string Developer = "developer";
+        public static readonly string Anonymous = "anonymous";
+        public static readonly string Authenticated = "authenticated";
+        public static readonly string Administrator = "administrator";
     }
 }
