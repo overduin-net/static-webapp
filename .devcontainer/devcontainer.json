@@ -10,14 +10,32 @@
         },
         "ghcr.io/devcontainers/features/node:1": {
             "version": "20"
+        },
+        "ghcr.io/devcontainers/features/common-utils:1": {
+            "installZsh": false,
+            "installOhMyZsh": false,
+            "installDocker": false,
+            "installNode": false,
+            "installGit": false,
+            "installProcps": true
         }
     },
     "containerEnv": {
         "NG_FORCE_TTY": "false"
     },
-    "extensions": [
-        "Azurite.azurite"
-    ],
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "Azurite.azurite",
+                "ms-azuretools.vscode-azurefunctions",
+                "github.copilot",
+                "ms-dotnettools.csdevkit",
+                "fernandoescolar.vscode-solution-explorer",
+                "ms-dotnettools.vscodeintellicode-csharp",
+                "mhutchie.git-graph"
+            ]
+        }
+    },
     "forwardPorts": [ 7071, 4200, 4280],
     "postCreateCommand": "bash .devcontainer/setup.sh",
     "postAttachCommand": "swa start",
